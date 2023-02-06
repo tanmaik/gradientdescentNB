@@ -1,8 +1,14 @@
 from Gradient import WeightedNB
 from sklearn import datasets
+import sys
+import numpy as np
 breast = datasets.load_breast_cancer()
 X = breast.data
 y = breast.target
+
+X = np.loadtxt(open("undiscretized.csv", "rb"), delimiter=",", usecols=range(14), skiprows=1, dtype=float)
+y = np.loadtxt(open("undiscretized.csv", "rb"), delimiter=",", usecols=range(14,15), skiprows=1, dtype=int)
+
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, random_state=1)
 wnb = WeightedNB(step_size=1e-2, max_iter=25)
